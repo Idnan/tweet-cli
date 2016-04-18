@@ -99,7 +99,5 @@ class Tweet
     {
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "authenticity_token=' . $token . '&username=' . $this->username . '&password=' . $this->password . '" "https://mobile.twitter.com/session"';
         exec($cmd, $result);
-
-        echo "<pre>";print_r($result);die;
     }
 }
