@@ -59,7 +59,7 @@ class Tweet
 
         $token = $this->getLoginToken();
         $this->login($token);
-
+        $composeToken = $this->getComposeTweetToken();
     }
 
     /**
@@ -86,18 +86,36 @@ class Tweet
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/session/new"';
         exec($cmd, $result);
 
-        $str = implode('', $result);
-
-        $regex = '/authenticity_token.+?value=\"(.*?)\"/';
-
-        preg_match($regex, $str, $matches);
-
-        return $matches[1];
+        return $this->getToken($result);
     }
 
     private function login($token)
     {
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "authenticity_token=' . $token . '&username=' . $this->username . '&password=' . $this->password . '" "https://mobile.twitter.com/session"';
         exec($cmd, $result);
+    }
+
+    private function getComposeTweetToken()
+    {
+        $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/compose/tweet"';
+        exec($cmd, $result);
+
+        return $this->getToken($result);
+    }
+
+    private function grapLogoutToken()
+    {
+        $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/account"';
+        exec($cmd, $result);
+    }
+
+    private function getToken($result)
+    {
+        $html  = implode('', $result);
+        $regex = '/authenticity_token.+?value=\"(.*?)\"/';
+
+        preg_match($regex, $html, $matches);
+
+        return $matches[1];
     }
 }
