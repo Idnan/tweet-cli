@@ -10,6 +10,29 @@ $options = getopt('u:p:', ['tweet:']);
 $username   = empty($options['u']) ? '' : $options['u'];
 $password   = empty($options['p']) ? '' : $options['p'];
 $tweet      = empty($options['tweet']) ? '' : $options['tweet'];
+$error      = false;
+
+if (empty($username)) {
+    echo "[-] Username is required!" . PHP_EOL;
+    $error = true;
+}
+
+if (empty($password)) {
+    echo "[-] Password is required!" . PHP_EOL;
+    $error = true;
+}
+
+if (empty($tweet)) {
+    echo "[-] Nothing to tweet!" . PHP_EOL;
+    $error = true;
+} else if (trim(strlen($tweet)) > 140) {
+    echo "[-] Tweet must not be longer than 140 chars!" . PHP_EOL;
+    $error = true;
+}
+
+if ($error) {
+    exit(1);
+}
 
 $tweet = new Tweet($username, $password, $tweet);
 $tweet->begin();
