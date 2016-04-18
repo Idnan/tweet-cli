@@ -36,9 +36,9 @@ class Tweet
     /**
      * Tweet constructor.
      *
-     * @param string $username username
-     * @param string $password password
-     * @param string $tweet    tweet
+     * @param $username
+     * @param $password
+     * @param $tweet
      */
     public function __construct($username, $password, $tweet)
     {
@@ -50,7 +50,7 @@ class Tweet
     /**
      * Start the tweet process
      *
-     * @author Adnan Ahmed <adnan.ahmed@tajawal.com>
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
      *
      */
     public function begin()
@@ -59,7 +59,12 @@ class Tweet
 
         $token = $this->getLoginToken();
         $this->login($token);
-        $composeToken = $this->getComposeTweetToken();
+        $tweetToken = $this->getComposeTweetToken();
+        $this->tweet($tweetToken);
+        $logoutToken = $this->getLogoutToken();
+        $this->logout($logoutToken);
+
+        $this->deleteCookie();
     }
 
     /**
@@ -78,37 +83,124 @@ class Tweet
      *
      * @return string
      *
-     * @author Adnan Ahmed <adnan.ahmed@tajawal.com>
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
      *
      */
     private function getLoginToken()
     {
+        echo "[+] Fetching login token..." . PHP_EOL;
+
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/session/new"';
         exec($cmd, $result);
 
         return $this->getToken($result);
     }
 
+    /**
+     * Login
+     *
+     * @param $token
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
     private function login($token)
     {
+        echo "[+] Submitting login form..." . PHP_EOL;
+
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "authenticity_token=' . $token . '&username=' . $this->username . '&password=' . $this->password . '" "https://mobile.twitter.com/session"';
         exec($cmd, $result);
     }
 
+    /**
+     * Grab login token
+     *
+     * @return string
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
     private function getComposeTweetToken()
     {
+        echo "[+] Getting token to composer tweet..." . PHP_EOL;
+
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/compose/tweet"';
         exec($cmd, $result);
 
         return $this->getToken($result);
     }
 
-    private function grapLogoutToken()
+    /**
+     * Tweet
+     *
+     * @param $token
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
+    private function tweet($token)
     {
-        $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/account"';
+        echo "[+] Tweet tweet tweet tweet (check your profile)..." . PHP_EOL;
+
+        $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "wfa=1&authenticity_token=' . $token . '&tweet[text]=' . $this->tweet . '&commit=Tweet" "https://mobile.twitter.com/compose/tweet"';
         exec($cmd, $result);
     }
 
+    /**
+     * Get logout token
+     *
+     * @return string
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
+    private function getLogoutToken()
+    {
+        echo "[+] Getting token to logout..." . PHP_EOL;
+
+        $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/account"';
+        exec($cmd, $result);
+
+        return $this->getToken($result);
+    }
+
+    /**
+     * Logout
+     *
+     * @param $token
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
+    private function logout($token)
+    {
+        echo "[+] Logging out..." . PHP_EOL;
+
+        $cmd = 'logout=$(curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "authenticity_token=' . $token . '" "https://mobile.twitter.com/session/destroy")';
+        exec($cmd, $result);
+    }
+
+    /**
+     * Delete cookie
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
+    private function deleteCookie()
+    {
+        unlink(static::COOKIE);
+    }
+
+    /**
+     * Parse html to grab token
+     *
+     * @param $result
+     *
+     * @return string
+     *
+     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     *
+     */
     private function getToken($result)
     {
         $html  = implode('', $result);

@@ -9,7 +9,7 @@ $options = getopt('u:p:', ['tweet:']);
 
 $username   = empty($options['u']) ? '' : $options['u'];
 $password   = empty($options['p']) ? '' : $options['p'];
-$tweet      = empty($options['tweet']) ? 'OK' : $options['tweet'];
+$tweet      = empty($options['tweet']) ? '' : $options['tweet'];
 
 $tweet = new Tweet($username, $password, $tweet);
 $tweet->begin();
