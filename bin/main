@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+require_once '../vendor/autoload.php';
+
+use Idnan\TweetCLI\Tweet;
+
+$options = getopt('u:p:', ['tweet:']);
+
+$username   = empty($options['u']) ? '' : $options['u'];
+$password   = empty($options['p']) ? '' : $options['p'];
+$tweet      = empty($options['tweet']) ? '' : $options['tweet'];
+
+
+
+echo "<pre>";print_r($options);die;

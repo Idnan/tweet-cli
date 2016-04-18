@@ -1,0 +1,20 @@
+{
+  "name": "idnan/tweet-cli",
+  "description": "Tweet through cURL from cli",
+  "require": {
+  },
+  "authors": [
+    {
+      "name": "Adnan Ahmed",
+      "email": "mahradnan@hotmail.com"
+    }
+  ],
+  "bin": [
+    "bin/main"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Idnan\\TweetCLI\\": "./src/"
+    }
+  }
+}
