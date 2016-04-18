@@ -1,6 +1,6 @@
 # Tweet Through CLI
 
-This script can log into your Twitter account and post a new tweet, all without the official OAuth API.
+This script can log into your Twitter account and post a new tweet, all without the `official OAuth API`.
 
 ## System requirements
 * *nix OS
