@@ -21,4 +21,4 @@ tweet-cli -u<twitter_username> -p<twitter_password> --tweet="Your tweet message"
 ![Image](http://i.imgur.com/JCiAH69.gif)
 
 ## Known issues
-* This script is 100% dependent on twitter html. So it will not work if twitter update their website, so don't rely on it 100%.
+* This script is 100% dependent on twitter html. So it will not work if twitter update their website, so don't rely on it.
