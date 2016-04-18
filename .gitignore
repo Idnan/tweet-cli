@@ -1,0 +1,7 @@
+/vendor/
+.idea/
+Thumbs.db
+ehthumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
