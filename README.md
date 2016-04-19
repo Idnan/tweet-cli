@@ -1,10 +1,6 @@
-# Tweet Through CLI
+# Tweet CLI
 
-This script can log into your Twitter account and post a new tweet, all without the `official OAuth API`.
-
-## System requirements
-* *nix OS
-* curl
+A little utility that helps you tweet directly through your CLI.
 
 ## Installation
 * Download the [phar file from here](https://github.com/Idnan/tweet-cli/releases/download/1.0.0/tweet-cli.phar)
@@ -13,12 +9,15 @@ This script can log into your Twitter account and post a new tweet, all without 
 
 ## Usage
 
-Run this command to tweet
+Following is the format of command
 
 ```
 tweet-cli -u<twitter_username> -p<twitter_password> --tweet="Your tweet message"
 ```
-![Image](http://i.imgur.com/JCiAH69.gif)
 
-## Known issues
-* This script is 100% dependent on twitter html. So it will not work if twitter update their website, so don't rely on it.
+For example
+
+```
+tweet-cli -u "username" -p "p@ssw0r3" --tweet="Tweet through your CLI by @idnan_se"
+```
+![Image](http://i.imgur.com/JCiAH69.gif)
