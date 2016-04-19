@@ -4,7 +4,7 @@ A little utility to help developers tweet directly from their CLI.
 
 ## Motivation
 
-To ease the pain of opening a browser, heading to twitter to tweet and to avoid getting distracted by other things that might catch your eye out there, I was tempted to make this utility, that lets you tweet directly from it without any hassle, for CLI as bash is something that most of the developers have open all the time so it is handy.
+To ease the pain of opening a browser, heading to twitter to tweet and to avoid getting distracted by other things that might catch your eye out there, I was tempted to make this utility, that lets you tweet without any hassle, for cli. Why cli? Because bash is something that most of the developers have open all the time.
 
 ## Installation
 
