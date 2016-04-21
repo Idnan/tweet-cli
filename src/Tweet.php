@@ -110,6 +110,8 @@ class Tweet
 
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "authenticity_token=' . $token . '&username=' . $this->username . '&password=' . $this->password . '" "https://mobile.twitter.com/session"';
         exec($cmd, $result);
+
+        $this->checkLoginError($result);
     }
 
     /**
@@ -144,6 +146,8 @@ class Tweet
 
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" -d "wfa=1&authenticity_token=' . $token . '&tweet[text]=' . $this->tweet . '&commit=Tweet" "https://mobile.twitter.com/compose/tweet"';
         exec($cmd, $result);
+
+        $this->checkTweetError($result);
     }
 
     /**
@@ -209,5 +213,51 @@ class Tweet
         preg_match($regex, $html, $matches);
 
         return $matches[1];
+    }
+
+    /**
+     * Parse html to check login error
+     *
+     * @param $result
+     *
+     * @author Adnan Ahmed <adnan.ahmed@tajawal.com>
+     *
+     */
+    private function checkLoginError($result)
+    {
+        $html  = implode('', $result);
+        $regex = '/<div class=\"message\">(.*?)<\\/div>/';
+
+        preg_match($regex, $html, $matches);
+
+        if (!empty($matches)) {
+
+            echo "[FAIL] " . trim($matches[1]) . PHP_EOL;
+            exit(1);
+        }
+    }
+
+    /**
+     * Parse html to check for tweet error
+     *
+     * @param $result
+     *
+     * @author Adnan Ahmed <adnan.ahmed@tajawal.com>
+     *
+     */
+    private function checkTweetError($result)
+    {
+        $html  = implode('', $result);
+        $regex = '/<div class=\"message\">(.*?)<\\/div>/';
+
+        preg_match($regex, $html, $matches);
+
+        $response = !empty($matches[1]) ? strtolower(trim($matches[1])) : '';
+
+        if ($response != 'tweet sent!') {
+
+            echo "[FAIL] " . $response . PHP_EOL;
+            exit(1);
+        }
     }
 }
