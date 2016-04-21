@@ -124,7 +124,7 @@ class Tweet
      */
     private function getComposeTweetToken()
     {
-        echo "[+] Getting token to composer tweet..." . PHP_EOL;
+        echo "[+] Getting token to compose tweet..." . PHP_EOL;
 
         $cmd = 'curl -s -b "' . static::COOKIE . '" -c "' . static::COOKIE . '" -L -A "' . static::AGENT . '" "https://mobile.twitter.com/compose/tweet"';
         exec($cmd, $result);
