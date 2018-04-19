@@ -50,7 +50,7 @@ class Tweet
     /**
      * Start the tweet process
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     public function begin()
@@ -70,7 +70,7 @@ class Tweet
     /**
      * Create a temp. cookie
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function createCookie()
@@ -83,7 +83,7 @@ class Tweet
      *
      * @return string
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function getLoginToken()
@@ -101,7 +101,7 @@ class Tweet
      *
      * @param $token
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function login($token)
@@ -119,7 +119,7 @@ class Tweet
      *
      * @return string
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function getComposeTweetToken()
@@ -137,7 +137,7 @@ class Tweet
      *
      * @param $token
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function tweet($token)
@@ -155,7 +155,7 @@ class Tweet
      *
      * @return string
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function getLogoutToken()
@@ -173,7 +173,7 @@ class Tweet
      *
      * @param $token
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function logout($token)
@@ -187,7 +187,7 @@ class Tweet
     /**
      * Delete cookie
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function deleteCookie()
@@ -202,7 +202,7 @@ class Tweet
      *
      * @return string
      *
-     * @author Adnan Ahmed <mahradnan@hotmail.com>
+     * @author Adnan Ahmed <idnan.se@gmail.com>
      *
      */
     private function getToken($result)
